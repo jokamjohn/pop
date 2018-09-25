@@ -3,6 +3,15 @@
 This is a system that contains a list of locations and the total 
 number of residents broken down by gender.
 
+## Setup
+Install [mongodb]() and start its server using:
+
+```angular2html
+sudo mongod
+```
+
+create a database and add its url to the `.env`.
+
 ## Running the app
 
 Ensure that you have [nodemon](https://nodemon.io/) installed and [yarn](https://yarnpkg.com/en/). `cd` into the pop folder and then install 

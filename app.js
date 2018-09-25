@@ -5,6 +5,7 @@ const express = require('express');
 express.json();
 const app = express();
 const logger = require('morgan');
+require('./models/db').Database;
 const cors = require('./middlewares/cors');
 
 //app port
