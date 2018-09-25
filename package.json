@@ -1,0 +1,22 @@
+{
+  "name": "p-m-s",
+  "version": "1.0.0",
+  "description": "Population management system",
+  "main": "app.js",
+  "repository": "https://github.com/jokamjohn/pop.git",
+  "author": "johnkagga <johnkagga@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "server": "nodemon app.js",
+    "start": "concurrently --kill-others-on-fail \" yarn server\""
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  }
+}
