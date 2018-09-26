@@ -27,4 +27,30 @@ To start the application run:
 yarn start
 ```
 
+## Adding a location
+
+Send a `application/json` payload as shown in the example below to `/api/v1/location`
+```angular2html
+{
+	"name": "Uganda",
+	"female": 60,
+	"male": 50
+}
+```
+
+Response will be a `201` with a payload as shown in the 
+example below.
+
+```angular2html
+{
+    "status": "success",
+    "data": {
+        "name": "Uganda",
+        "female": 60,
+        "male": 50,
+        "subLocations": []
+    }
+}
+```
+
 
