@@ -78,5 +78,16 @@ router.post('/add/sub/location/:id', async (req, res, next) => {
   }
 });
 
+/**
+ * Delete a location from the system/database
+ * /api/v1/location/:id
+ */
+router.delete('/location/:id', (req, res, next) => {
+  req.location.remove(function (err) {
+    if (err) return next(Utils.Error('Failed to delete location', 500));
+    return res.status(200).send({ message: 'Location deleted successfully' });
+  })
+});
+
 module.exports = router;
 
