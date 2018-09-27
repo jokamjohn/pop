@@ -1,23 +1,79 @@
 const express = require('express');
 const router = express.Router({});
 const Location = require('../models/location');
-const response = require('../helpers/utils').response;
+const Utils = require('../helpers/utils');
 
-router.post('/location', async (req, res, next) => {
+/**
+ * Load a location on every request that needs it.
+ */
+router.param('id', async (req, res, next, id) => {
   try {
-    const location = new Location({
-      name: req.body['name'],
-      male: req.body['male'],
-      female: req.body['female']
-    });
-    await location.save();
-    await res.status(201).send(response('success', {
-      name: location.name,
-      female: location.female,
-      male: location.male,
-      subLocations: location.subLocations
-    }));
+    const location = await Utils.getLocation(id);
+    if (!location) return next(Utils.Error('Location not found', 404));
+    req.location = location;
+    next();
+  }
+  catch (error) {
+    next(error)
+  }
+});
+
+/**
+ * Get all locations
+ * /api/v1/locations
+ */
+router.get('/locations', async (req, res, next) => {
+  try {
+    const locations = await Location.find({}).exec();
+    return res.status(200).send(Utils.response('success', locations));
   } catch (error) {
+    next(error)
+  }
+
+});
+
+router.post('/locations', async (req, res, next) => {
+  try {
+    const location = await Utils.saveLocation(req);
+    await res.status(201).send(Utils.response('success', Utils.getLocationObject(location)));
+  } catch (error) {
+    next(error)
+  }
+});
+
+/**
+ * Return a location given the id
+ * Also return the sublocations up to one level.
+ * /api/v1/location/<id>
+ */
+router.get('/location/:id', async (req, res) => {
+  const subLocations = req.location.subLocations;
+  let subLocs = [];
+  if (subLocations.length > 0){
+    subLocs = await Utils.getSubLocations(subLocations);
+  }
+  const location = Object.assign({}, Utils.getLocationObject(req.location), { subLocations: subLocs });
+  return res.status(200).send(Utils.getLocationObject(location));
+});
+
+/**
+ * Add a sublocation to a location given its id.
+ */
+router.post('/add/sub/location/:id', async (req, res, next) => {
+  try {
+    const location = await Utils.saveLocation(req);
+    req.location.update(location._id, async function (err, updatedLocation) {
+      if (err) return next(err);
+      const subLocations = await Utils.getSubLocations(updatedLocation.subLocations);
+      return res.status(201).send(Utils.response('success', {
+        name: updatedLocation.name,
+        female: updatedLocation.female,
+        male: updatedLocation.male,
+        subLocations
+      }));
+    })
+  }
+  catch (error) {
     next(error)
   }
 });
