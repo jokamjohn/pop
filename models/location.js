@@ -13,6 +13,12 @@ const LocationSchema = new Schema({
   subLocations: { type : Array , "default" : [] }
 });
 
+LocationSchema.method('update', function (subLocation, callback) {
+  const location = this;
+  Object.assign(location, { subLocations: [...this.subLocations, subLocation] });
+  location.save(callback);
+});
+
 //model
 const Location = mongoose.model('Location', LocationSchema);
 

@@ -29,7 +29,11 @@ yarn start
 
 ## Adding a location
 
-Send a `application/json` payload as shown in the example below to `/api/v1/location`
+Send a `POST` request with the `application/json` payload as shown in the example below to 
+```angular2html
+/api/v1/location
+```
+
 ```angular2html
 {
 	"name": "Uganda",
@@ -52,5 +56,56 @@ example below.
     }
 }
 ```
+
+## Add a sub location to a location
+
+Send a `POST` request with the location details to the url below replacing `:location_id`
+with the location id.
+
+```angular2html
+/api/v1/add/sub/location/:location_id
+```
+
+## Get a location with its sub locations
+Send a `GET` request to the endpoint below
+
+```angular2html
+/api/v1/location/:location_id
+```
+and a response will be returned as shown below
+
+```angular2html
+{
+    "id": "5baa1fe39980437cf3766821",
+    "name": "kagga",
+    "female": 50,
+    "male": 50,
+    "subLocations": [
+        {
+            "id": "5bab932d1a2202a61e934970",
+            "name": "JK",
+            "female": 70,
+            "male": 80,
+            "subLocations": []
+        },
+        {
+            "id": "5bab93b8f71da3a66869ded5",
+            "name": "JoK",
+            "female": 70,
+            "male": 80,
+            "subLocations": []
+        },
+    ]
+}    
+```
+
+## Get all locations with sub locations
+
+Send a `GET` request to the endpoint below
+
+```angular2html
+/api/v1/locations
+```
+
 
 
