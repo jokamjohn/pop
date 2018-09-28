@@ -38,7 +38,8 @@ Send a `POST` request with the `application/json` payload as shown in the exampl
 {
 	"name": "Uganda",
 	"female": 60,
-	"male": 50
+	"male": 50,
+	"total": 110
 }
 ```
 
@@ -52,6 +53,7 @@ example below.
         "name": "Uganda",
         "female": 60,
         "male": 50,
+        "total": 110,
         "subLocations": []
     }
 }
@@ -80,12 +82,14 @@ and a response will be returned as shown below
     "name": "kagga",
     "female": 50,
     "male": 50,
+    "total": 100,
     "subLocations": [
         {
             "id": "5bab932d1a2202a61e934970",
             "name": "JK",
             "female": 70,
             "male": 80,
+            "total": 150,
             "subLocations": []
         },
         {
@@ -93,6 +97,7 @@ and a response will be returned as shown below
             "name": "JoK",
             "female": 70,
             "male": 80,
+            "total": 150,
             "subLocations": []
         },
     ]
@@ -105,6 +110,13 @@ Send a `GET` request to the endpoint below
 
 ```angular2html
 /api/v1/locations
+```
+
+### Update a location
+Send a `PUT` request with a location data payload to teh endpoint below
+
+```angular2html
+/api/v1/locations/:id
 ```
 
 
