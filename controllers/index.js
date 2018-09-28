@@ -25,7 +25,7 @@ router.param('id', async (req, res, next, id) => {
 router.get('/locations', async (req, res, next) => {
   try {
     const locations = await Location.find({}).exec();
-    return res.status(200).send(Utils.response('success', locations));
+    return res.status(200).send(Utils.response('success', Utils.formatLocations(locations)));
   } catch (error) {
     next(error)
   }
@@ -67,12 +67,8 @@ router.post('/add/sub/location/:id', async (req, res, next) => {
     }, async function (err, updatedLocation) {
       if (err) return next(err);
       const subLocations = await Utils.getSubLocations(updatedLocation.subLocations);
-      return res.status(201).send(Utils.response('success', {
-        name: updatedLocation.name,
-        female: updatedLocation.female,
-        male: updatedLocation.male,
-        subLocations
-      }));
+      return res.status(201).send(Utils.response('success',
+          Utils.getLocationObject(Object.assign(updatedLocation, { subLocations, id: updatedLocation._id }))));
     })
   }
   catch (error) {

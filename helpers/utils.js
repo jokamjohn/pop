@@ -60,6 +60,7 @@ module.exports.getSubLocations = async (locations) => {
       name: location.name,
       female: location.female,
       male: location.male,
+      total: location.total || 0,
       subLocations: location.subLocations,
     }];
   }
@@ -76,5 +77,22 @@ module.exports.getLocationObject = location => ({
     name: location.name,
     female: location.female,
     male: location.male,
+    total: location.total || 0,
     subLocations: location.subLocations
 });
+
+/**
+ * Format the locations to be returned.
+ * @param locations
+ * @returns {Array}
+ */
+module.exports.formatLocations = locations => {
+  let formattedLocations = [];
+  if (locations) {
+    for (let loc of locations) {
+      const location = this.getLocationObject(Object.assign(loc, { id: loc._id }));
+      formattedLocations = [...formattedLocations, location]
+    }
+  }
+  return formattedLocations
+};
