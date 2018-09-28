@@ -62,7 +62,9 @@ router.get('/location/:id', async (req, res) => {
 router.post('/add/sub/location/:id', async (req, res, next) => {
   try {
     const location = await Utils.saveLocation(req);
-    req.location.update(location._id, async function (err, updatedLocation) {
+    req.location.update({ subLocation: location._id,
+      updateSubLocation: true
+    }, async function (err, updatedLocation) {
       if (err) return next(err);
       const subLocations = await Utils.getSubLocations(updatedLocation.subLocations);
       return res.status(201).send(Utils.response('success', {
@@ -86,6 +88,17 @@ router.delete('/location/:id', (req, res, next) => {
   req.location.remove(function (err) {
     if (err) return next(Utils.Error('Failed to delete location', 500));
     return res.status(200).send({ message: 'Location deleted successfully' });
+  })
+});
+
+/**
+ * Update a location
+ * /api/v1/location/:id
+ */
+router.put('/location/:id', (req, res, next) => {
+  req.location.update(req.body, function (err, location) {
+    if (err) return next(err);
+    res.status(200).send(Utils.getLocationObject(location));
   })
 });
 

@@ -13,9 +13,12 @@ const LocationSchema = new Schema({
   subLocations: { type : Array , "default" : [] }
 });
 
-LocationSchema.method('update', function (subLocation, callback) {
+LocationSchema.method('update', function (updates, callback) {
   const location = this;
-  Object.assign(location, { subLocations: [...this.subLocations, subLocation] });
+  if (updates.updateSubLocation) Object.assign(location, { subLocations: [...this.subLocations, updates.subLocation] });
+  else {
+    Object.assign(location, updates)
+  }
   location.save(callback);
 });
 
