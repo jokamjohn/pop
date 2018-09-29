@@ -129,6 +129,17 @@ describe('Endpoint tests', () => {
         });
       });
     });
+
+    test('should fail when body is empty when adding location', () => {
+      return request(server)
+          .post(`${BASE_PATH}/locations`)
+          .send({})
+          .set('Accept', 'application/json')
+          .expect(400)
+          .then(res => {
+            expect(res.body.message).toBe("Body payload cannot be empty");
+          });
+    });
   });
 
   describe('Test PUT endpoints', () => {
@@ -157,6 +168,24 @@ describe('Endpoint tests', () => {
           })
         });
       });
+    });
+  });
+
+  describe('Test Delete endpoint', () => {
+    test('should delete the location', () => {
+      const location = new Location({
+        name: 'Bukoto Street',
+        male: 50,
+        female: 50
+      });
+
+      location.save((err, loc) => {
+        request(server).delete(`${BASE_PATH}/location/${loc._id}`)
+            .expect(200)
+            .then(res => {
+              expect(res.body.message).toBe("Location deleted successfully");
+            });
+      })
     });
   });
 });
