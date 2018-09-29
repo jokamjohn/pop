@@ -11,7 +11,8 @@
     "server": "nodemon app.js",
     "start": "concurrently --kill-others-on-fail \" yarn server\"",
     "test": "export NODE_ENV=test && export DATABASE_URL=mongodb://localhost/poptest && jest --detectOpenHandles --forceExit",
-    "watch": "export NODE_ENV=test && export DATABASE_URL=mongodb://localhost/poptest && jest --detectOpenHandles --forceExit --watch"
+    "watch": "export NODE_ENV=test && export DATABASE_URL=mongodb://localhost/poptest && jest --detectOpenHandles --forceExit --watch",
+    "clear": "jest --clearCache"
   },
   "dependencies": {
     "dotenv": "^6.0.0",

@@ -7,11 +7,36 @@ const Schema = mongoose.Schema;
 
 //location detail schema
 const LocationSchema = new Schema({
-  name: { type: String, required: true },
-  male: { type: Number, required: true },
-  female: { type: Number, required: true },
-  subLocations: { type : Array , "default" : [] },
-  total: { type: Number, required:false, default: 0 },
+  name: {
+    type: String,
+    required: [true, "Location name is required"],
+    unique: true
+  },
+  male: {
+    type: Number,
+    required: true,
+    validate: {
+      validator: Number.isInteger,
+      message: "Male value must be an integer number"
+    }
+  },
+  female: {
+    type: Number,
+    required: true,
+    validate: {
+      validator: Number.isInteger,
+      message: "Female value must be an integer number"
+    }
+  },
+  subLocations: {
+    type : Array ,
+    "default" : []
+  },
+  total: {
+    type: Number,
+    required:false,
+    default: 0
+  },
 });
 
 LocationSchema.method('update', function (updates, callback) {

@@ -32,6 +32,9 @@ router.get('/locations', async (req, res, next) => {
 
 });
 
+/**
+ * Add a location to the database
+ */
 router.post('/locations', async (req, res, next) => {
   try {
     const location = await Utils.saveLocation(req);
