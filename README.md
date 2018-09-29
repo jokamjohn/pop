@@ -3,6 +3,9 @@
 This is a system that contains a list of locations and the total 
 number of residents broken down by gender.
 
+## Documentation
+Find the full documentation [here](https://documenter.getpostman.com/view/86315/RWgjaMgb)
+
 ## Setup
 Install [mongodb]() and start its server using:
 
