@@ -9,8 +9,7 @@ const Schema = mongoose.Schema;
 const LocationSchema = new Schema({
   name: {
     type: String,
-    required: [true, "Location name is required"],
-    unique: true
+    required: [true, "Location name is required"]
   },
   male: {
     type: Number,

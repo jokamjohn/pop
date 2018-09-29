@@ -36,6 +36,8 @@ router.get('/locations', async (req, res, next) => {
  * Add a location to the database
  */
 router.post('/locations', async (req, res, next) => {
+  if (Object.keys(req.body).length === 0)  return res.status(400).send({ message: "Body payload cannot be empty" });
+
   try {
     const location = await Utils.saveLocation(req);
     await res.status(201).send(Utils.response('success', Utils.getLocationObject(location)));
@@ -63,6 +65,8 @@ router.get('/location/:id', async (req, res) => {
  * Add a sublocation to a location given its id.
  */
 router.post('/add/sub/location/:id', async (req, res, next) => {
+  if (Object.keys(req.body).length === 0)  return res.status(400).send({ message: "Body payload cannot be empty" });
+
   try {
     const location = await Utils.saveLocation(req);
     req.location.update({ subLocation: location._id,
