@@ -9,7 +9,9 @@
   "private": false,
   "scripts": {
     "server": "nodemon app.js",
-    "start": "concurrently --kill-others-on-fail \" yarn server\""
+    "start": "concurrently --kill-others-on-fail \" yarn server\"",
+    "test": "export NODE_ENV=test && export DATABASE_URL=mongodb://localhost/poptest && jest --detectOpenHandles --forceExit",
+    "watch": "export NODE_ENV=test && export DATABASE_URL=mongodb://localhost/poptest && jest --detectOpenHandles --forceExit --watch"
   },
   "dependencies": {
     "dotenv": "^6.0.0",
@@ -18,6 +20,15 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "^4.0.1",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ]
   }
 }

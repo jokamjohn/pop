@@ -31,5 +31,7 @@ app.use(errorHandler);
 
 
 //start server
-app.listen(port, () => console.log(`app pop running on port ${port}`));
+const server = app.listen(port, () => console.log(`app pop running on port ${port}`));
+
+module.exports = server;
 
