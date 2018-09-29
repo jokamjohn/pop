@@ -12,6 +12,6 @@ const db = mongoose.connection;
 db.on('error', error => console.error("db connection error ", error));
 
 //connection open event listener
-db.once('open', () => console.log("Db connection successful"));
+db.once('open', () => console.log("Db connection successful", process.env.DATABASE_URL));
 
 module.exports.Database = db;
