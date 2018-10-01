@@ -1,0 +1,35 @@
+{
+  "name": "p-m-s",
+  "version": "1.0.0",
+  "description": "Population management system",
+  "main": "app.js",
+  "repository": "https://github.com/jokamjohn/pop.git",
+  "author": "johnkagga <johnkagga@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "server": "nodemon app.js",
+    "start": "concurrently --kill-others-on-fail \" yarn server\"",
+    "test": "export NODE_ENV=test && export DATABASE_URL=mongodb://localhost/poptest && jest --detectOpenHandles --forceExit",
+    "watch": "export NODE_ENV=test && export DATABASE_URL=mongodb://localhost/poptest && jest --detectOpenHandles --forceExit --watch",
+    "clear": "jest --clearCache"
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.17",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ]
+  }
+}
